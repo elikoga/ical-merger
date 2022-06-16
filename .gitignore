@@ -1,2 +1,3 @@
 /target
 src/do_calendar.rs
+config.json

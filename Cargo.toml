@@ -2,6 +2,7 @@
 name = "ical-merger"
 version = "0.1.0"
 edition = "2021"
+default-run = "ical-merger"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -12,4 +13,8 @@ tokio = { version = "1", features = ["full"] }
 openssl = { version = "0.10", features = ["vendored"] }
 bytes = "1.1.0"
 rocket = "0.5.0-rc.1"
-
+handlebars = "4.2.2"
+serde = "1"
+serde_json = "1"
+async-recursion = "1"
+futures = "0.3.21"

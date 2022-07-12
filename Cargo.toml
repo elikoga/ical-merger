@@ -3,6 +3,15 @@ name = "ical-merger"
 version = "0.2.0"
 edition = "2021"
 default-run = "ical-merger"
+authors = ["Eli Kogan-Wang <elikowa@gmail.com>"]
+description = "Merges multiple iCalendar files into one, as a web service."
+license = "MIT"
+license-file = "LICENSE"
+documentation = "https://docs.rs/ical-merger"
+homepage = "https://github.com/elikoga/ical-merger"
+repository = "https://github.com/elikoga/ical-merger"
+keywords = ["icalendar", "calendar", "merger", "ical", "ics"]
+categories = ["text-processing", "web-programming::http-server"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

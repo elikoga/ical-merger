@@ -6,7 +6,6 @@ default-run = "ical-merger"
 authors = ["Eli Kogan-Wang <elikowa@gmail.com>"]
 description = "Merges multiple iCalendar files into one, as a web service."
 license = "MIT"
-license-file = "LICENSE"
 documentation = "https://docs.rs/ical-merger"
 homepage = "https://github.com/elikoga/ical-merger"
 repository = "https://github.com/elikoga/ical-merger"

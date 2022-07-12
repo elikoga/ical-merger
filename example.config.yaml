@@ -1,0 +1,39 @@
+calendars:
+  example.ics:
+    MergeCalendars:
+    - ModifyCalendar:
+      - FetchCalendar: https://calendar.google.com/calendar/ical/...
+      - - KeepComponentsIfNameIn:
+          - VEVENT
+          - TIMEZONE
+        - ModifyComponentsIfNameIs:
+          - VEVENT
+          - - KeepPropertiesIfNameIn:
+              - DTSTAMP
+              - UID
+              - DTSTART
+              - DTEND
+              - EXDATE
+              - EXRULE
+              - RDATE
+              - RRULE
+              - ATTENDEE
+            - InsertProperty: SUMMARY:[Personal]
+    - ModifyCalendar:
+      - FetchCalendar: https://calendar.google.com/calendar/ical/...
+      - - KeepComponentsIfNameIn:
+          - VEVENT
+          - VTIMEZONE
+        - ModifyComponentsIfNameIs:
+          - VEVENT
+          - - ReplacePropertiesValueIfNameIs:
+              - SUMMARY
+              - '[Uni] {{ value }}'
+    - ModifyCalendar:
+      - FetchCalendar: https://p43-caldav.icloud.com/published
+      - - ModifyComponentsIfNameIs:
+          - VEVENT
+          - - ReplacePropertiesValueIfNameIs:
+              - SUMMARY
+              - '[fcio] {{ value }}'
+

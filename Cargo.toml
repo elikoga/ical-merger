@@ -7,14 +7,15 @@ default-run = "ical-merger"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ical = "0.7.0"
-reqwest = { version = "0.11", features = ["json", "blocking"] }
-tokio = { version = "1", features = ["full"] }
-openssl = { version = "0.10", features = ["vendored"] }
-bytes = "1.1.0"
-rocket = "0.5.0-rc.1"
-handlebars = "4.2.2"
-serde = "1"
-serde_json = "1"
-async-recursion = "1"
-futures = "0.3.21"
+reqwest = { version = "0.11.11", features = ["json", "blocking"] }
+tokio = { version = "1.19.2", features = ["full"] }
+openssl = { version = "0.10.41", features = ["vendored"] }
+rocket = "0.5.0-rc.2"
+serde = "1.0.139"
+serde_json = "1.0.82"
+async-recursion = "1.0.0"
+elikoga-ical-rs = "0.2.2"
+eyre = "0.6.8"
+serde_yaml = "0.8.25"
+serde_with = "1.14.0"
+dashmap = "5.3.4"

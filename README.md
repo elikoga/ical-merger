@@ -38,3 +38,7 @@ ROCKET_PORT=8000 ical-merger
 ```
 
 By default, we pull in the latest versions of all calenders every minute. This is currently hard-coded in the program.
+
+## release
+
+Release with `cargo release`.

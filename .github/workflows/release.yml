@@ -15,7 +15,7 @@ env:
   LINUX_ARM64_TARGET: aarch64-unknown-linux-musl
 
   # Space separated paths to include in the archive.
-  RELEASE_ADDS: README.md LICENSE-APACHE LICENSE-MIT
+  RELEASE_ADDS: README.md LICENSE
 
 jobs:
   build:
@@ -43,6 +43,19 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           override: true
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            ~/.cargo/bin
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            target
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Cargo.lock') }}
 
       - name: Query version number
         id: get_version

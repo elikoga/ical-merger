@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python310.withPackages(ps: with ps; [pyyaml])"
+#!/usr/bin/env python3
 
 import yaml
 from generate_config_lib import (
@@ -8,9 +7,15 @@ from generate_config_lib import (
     merge_calendars,
 )
 
-calendar_1 = fetch_calendar("https://calendar.google.com/calendar/ical/...")
-calendar_2 = fetch_calendar("https://calendar.google.com/calendar/ical/...")
-calendar_3 = fetch_calendar("https://p43-caldav.icloud.com/published")
+calendar_1 = fetch_calendar(
+    "https://calendar.google.com/calendar/ical/en.german%23holiday%40group.v.calendar.google.com/public/basic.ics"
+)
+calendar_2 = fetch_calendar(
+    "https://calendar.google.com/calendar/ical/en.german%23holiday%40group.v.calendar.google.com/public/basic.ics"
+)
+calendar_3 = fetch_calendar(
+    "https://americanhistorycalendar.com/eventscalendar?format=ical&viewid=4"
+)
 
 calendar_1.keep_components_if_name_in(["VEVENT", "TIMEZONE"])
 

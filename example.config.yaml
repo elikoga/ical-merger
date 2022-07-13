@@ -2,7 +2,7 @@ calendars:
   example.ics:
     MergeCalendars:
     - ModifyCalendar:
-      - FetchCalendar: https://calendar.google.com/calendar/ical/...
+      - FetchCalendar: https://calendar.google.com/calendar/ical/en.german%23holiday%40group.v.calendar.google.com/public/basic.ics
       - - KeepComponentsIfNameIn:
           - VEVENT
           - TIMEZONE
@@ -20,7 +20,7 @@ calendars:
               - ATTENDEE
             - InsertProperty: SUMMARY:[Personal]
     - ModifyCalendar:
-      - FetchCalendar: https://calendar.google.com/calendar/ical/...
+      - FetchCalendar: https://calendar.google.com/calendar/ical/en.german%23holiday%40group.v.calendar.google.com/public/basic.ics
       - - KeepComponentsIfNameIn:
           - VEVENT
           - VTIMEZONE
@@ -30,7 +30,7 @@ calendars:
               - SUMMARY
               - '[Uni] {{ value }}'
     - ModifyCalendar:
-      - FetchCalendar: https://p43-caldav.icloud.com/published
+      - FetchCalendar: https://americanhistorycalendar.com/eventscalendar?format=ical&viewid=4
       - - ModifyComponentsIfNameIs:
           - VEVENT
           - - ReplacePropertiesValueIfNameIs:

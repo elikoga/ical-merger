@@ -27,3 +27,6 @@ eyre = "0.6.8"
 serde_yaml = "0.8.25"
 serde_with = "1.14.0"
 dashmap = "5.3.4"
+
+[package.metadata.release]
+pre-release-hook = ["./pre-release.sh"]

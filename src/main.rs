@@ -1,9 +1,13 @@
 use dashmap::DashMap;
+use eyre::{eyre, Context, Result};
 use reqwest::Client;
 use std::{path::PathBuf, sync::Arc};
 use tokio::sync::RwLock;
 
-use ical_merger::{calendars::Calendar, config::read_config_file};
+use ical_merger::{
+    calendars::Calendar,
+    config::{read_config_file, ApplicationConfig},
+};
 use rocket::{get, http::ContentType, response::Responder, routes, State};
 
 #[rocket::launch]
@@ -12,26 +16,28 @@ async fn rocket() -> _ {
     let config = read_config_file().unwrap();
     let config = Arc::new(RwLock::new(config));
     let cache: Arc<DashMap<String, String>> = Arc::new(DashMap::new());
-    tokio::spawn({
-        let cache = cache.clone();
-        let client = Client::new();
-        let mut interval = tokio::time::interval(tokio::time::Duration::from_secs(60)); // every minute
-        async move {
-            loop {
-                interval.tick().await;
-                // for all calendars in the config, fetch them
-                let config = config.read().await.clone();
-                for (path, calendar_config) in config.calendars {
-                    let calendar = Calendar::from_config(client.clone(), calendar_config)
-                        .await
-                        .expect("Could not fetch calendar");
-                    // insert the calendar into the cache
-                    cache.insert(path.clone(), calendar.to_string());
-                }
-            }
-        }
-    });
+    tokio::spawn(worker_thread(config, cache.clone(), Client::new()));
     rocket::build().mount("/", routes![calendar]).manage(cache)
+}
+
+async fn worker_thread(
+    config: Arc<RwLock<ApplicationConfig>>,
+    cache: Arc<DashMap<String, String>>,
+    client: Client,
+) -> Result<()> {
+    let mut interval = tokio::time::interval(tokio::time::Duration::from_secs(6)); // every minute
+    loop {
+        interval.tick().await;
+        // for all calendars in the config, fetch them
+        let config = config.read().await.clone();
+        for (path, calendar_config) in config.calendars {
+            let _ = Calendar::from_config(client.clone(), calendar_config)
+                .await
+                .map(|calendar| cache.insert(path.clone(), calendar.to_string()))
+                .wrap_err(eyre!("Failed to build calendar {}", path))
+                .map_err(|e| println!("{:?}", e));
+        }
+    }
 }
 
 #[get("/<ident..>")]

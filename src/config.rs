@@ -36,7 +36,10 @@ pub fn read_config_file() -> Result<ApplicationConfig> {
     if let Ok(file) = File::open("config.yaml") {
         serde_yaml::from_reader(file).wrap_err(eyre!("Could not read config.yaml"))
     } else {
-        serde_json::from_reader(File::open("config.json")?)
-            .wrap_err(eyre!("Could not read config.yaml or config.json"))
+        serde_json::from_reader(
+            File::open("config.json")
+                .wrap_err(eyre!("Could not read config.yaml or config.json"))?,
+        )
+        .wrap_err(eyre!("Could not read config.json"))
     }
 }

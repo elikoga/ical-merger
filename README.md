@@ -18,7 +18,9 @@ From the [Rust Book](https://doc.rust-lang.org/book/ch14-04-installing-binaries.
 
 This adds the `ical-merger` binary to your `$PATH`.
 
-On running the server like this:
+You can also get the binary for your architecture directly from the newest release on github.
+
+When running the server like this:
 
 ```bash
 ical-merger

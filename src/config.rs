@@ -4,9 +4,21 @@ use elikoga_ical_rs::ContentLine;
 use eyre::{eyre, Context, Result};
 use serde::{Deserialize, Serialize};
 
+fn bool_true() -> bool {
+    true
+}
+
+fn sixty_seconds() -> Option<u64> {
+    Some(60)
+}
+
 #[derive(Deserialize, Serialize, Clone, Debug)]
 pub struct ApplicationConfig {
     pub calendars: HashMap<String, CalendarConfig>,
+    #[serde(default = "bool_true")]
+    pub fetch_on_demand: bool,
+    #[serde(default = "sixty_seconds")]
+    pub fetch_interval_seconds: Option<u64>,
 }
 
 pub type TemplateString = String;

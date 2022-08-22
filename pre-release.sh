@@ -4,7 +4,7 @@ set -e
 
 # generate example.config.yaml with ./generate_config_example.py
 
-./generate_config_example.py > example.config.yaml
+nix-shell -p "python310.withPackages(ps: with ps; [pyyaml])" --run ./generate_config_example.py > example.config.yaml
 
 # also run tests, clippy and fmt
 
